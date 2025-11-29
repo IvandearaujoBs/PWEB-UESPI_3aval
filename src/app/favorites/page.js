@@ -4,10 +4,12 @@ import CountryCard from '@/components/CountryCard'
 import CountryModal from '@/components/CountryModal'
 import { getFavorites, removeFavorite } from '@/utils/storage'
 import Footer from '@/components/Footer'
+import Filter from '@/components/Filter'
 
 export default function FavoritesPage() {
   const [favorites, setFavorites] = useState([])
   const [selectedCountry, setSelectedCountry] = useState(null)
+  const [selectedRegion, setSelectedRegion] = useState('') 
 
   useEffect(() => {
     loadFavorites()
@@ -22,6 +24,15 @@ export default function FavoritesPage() {
     removeFavorite(countryCode)
     loadFavorites() 
   }
+
+
+
+  const filteredFavorites = selectedRegion
+  ? favorites.filter(country =>
+      country.region?.toLowerCase() === selectedRegion.toLowerCase()
+    )
+  : favorites
+
 
   if (favorites.length === 0) {
     return (
@@ -51,14 +62,17 @@ export default function FavoritesPage() {
         Meus Países Favoritos ({favorites.length})
       </h1>
 
-      <div className="mb-6 text-center">
+      <div className="mb-6 flex flex-col md:flex-row items-center justify-between gap-4">
         <p className="text-gray-600">
           Países que você marcou como favoritos
         </p>
+
+        {/* Filtro por continente */}
+        <Filter onFilter={setSelectedRegion} />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {favorites.map(country => (
+        {filteredFavorites.map(country => (
           <div key={country.cca3} className="relative">
             <CountryCard 
               country={country}

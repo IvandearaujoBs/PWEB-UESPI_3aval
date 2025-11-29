@@ -1,17 +1,20 @@
 export default function Filter({ onFilter }) {
-  const regions = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania']
+  const handleChange = (e) => {
+    onFilter(e.target.value)
+  }
 
   return (
-    <select 
-      onChange={(e) => onFilter(e.target.value)}
-      className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+    <select
+      className="border rounded px-4 py-2"
+      onChange={handleChange}
+      defaultValue=""
     >
       <option value="">Todos os continentes</option>
-      {regions.map(region => (
-        <option key={region} value={region}>
-          {region}
-        </option>
-      ))}
+      <option value="Africa">África</option>
+      <option value="Americas">Américas</option>
+      <option value="Asia">Ásia</option>
+      <option value="Europe">Europa</option>
+      <option value="Oceania">Oceania</option>
     </select>
   )
 }

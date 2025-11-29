@@ -3,8 +3,8 @@ import Footer from '@/components/Footer'
 export default function AboutPage() {
   const teamMembers = [
     {
-      name: "Ivanildo dos Santos Araujo",
-      role: "Desenvolvedor Full Stack",
+      name: "Ivanildo dos Santos Araujo e Jefferson Ricardo do Amaral Melo",
+      role: "Desenvolvedores Full Stack",
       description: "Responsável pela integração com API e funcionalidades principais"
     },
   ]
