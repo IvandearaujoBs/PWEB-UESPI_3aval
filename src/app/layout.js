@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
           <div className="container mx-auto px-4">
             <div className="flex justify-between items-center py-4">
               <Link href="/" className="text-2xl font-bold text-blue-800">
-                 Explorador de Países
+                 Country Explorer
               </Link>
               
               <div className="flex gap-6">
