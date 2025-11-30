@@ -29,7 +29,7 @@ export async function getCountryByCode(code) {
     code
   )}?fields=name,capital,flags,region,subregion,population,cca3,languages,currencies,area,timezones`
 
-  const res = await fetch(url)
+  const res = await fetch(`${API_BASE}/alpha/${encodeURIComponent(code)}`)
 
   if (!res.ok) {
     throw new Error(`Erro ao buscar país pelo código: ${res.status}`)

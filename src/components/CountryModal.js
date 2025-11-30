@@ -12,8 +12,34 @@ export default function CountryModal({ country, onClose }) {
 
   useEffect(() => {
     setFavorite(isFavorite(country.cca3))
-    loadBorderCountries()
+    loadDetails()
   }, [country])
+  
+  const loadDetails = async () => {
+    try {
+      setLoading(true)
+  
+      // 1. busca os dados completos do país
+      const fullCountry = await getCountryByCode(country.cca3)
+      setDetailedCountry(fullCountry)
+  
+      // 2. carrega países fronteiriços a partir dos dados completos
+      if (fullCountry.borders && fullCountry.borders.length > 0) {
+        const borderPromises = fullCountry.borders.map((borderCode) =>
+          getCountryByCode(borderCode)
+        )
+        const borders = await Promise.all(borderPromises)
+        setBorderCountries(borders)
+      } else {
+        setBorderCountries([])
+      }
+    } catch (error) {
+      console.error('Erro ao carregar detalhes do país:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+  
 
   const loadBorderCountries = async () => {
     if (!country.borders || country.borders.length === 0) return
